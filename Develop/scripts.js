@@ -3,40 +3,58 @@ var displayDay = moment().format("dddd, MMMM D YYYY");
 console.log(displayDay);
 $("#currentDay").append(displayDay);
 // Create Calendar/Planner
-createCal();
 console.log(moment().format("dddd, MMMM Do YYYY h:mm HH"));
 var currDay = moment().format("dddd, MMMM Do YYYY h:mm HH");
 console.log(currDay);
 var currHour = parseInt(currDay.split(" ")[4].split(":")[0]);
 console.log("Current hour: " + currHour);
-function createCal() {
-  /* <div class="input-group">
-            <div class="input-group-prepend">
-                 <span class="input-group-text" id="time">Time</span>
-            </div>
-            <textarea class="form-control" aria-label="With textarea" id="time-val"></textarea>
-            <div class="input-group-append">
-                 <button class="btn btn-outline-secondary" type="button" id="button-addon2 time-btn">Submit</button>
-            </div>
-        </div>  */
+
+// add color
+    // adding ids to the buttons so they can be stored
+    // then add the empty array for user input and push the id value of the text field into the empty array
+    // then run conditional statements to run through which color needs to be at what time in the array 
+
   var timeArray = [
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23,
-    24,
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
   ];
+
+var userArray = ["", "", "", "", "", "", "", "", "",];
+var getList = localStorage.getItem(userArray);
+if (getList !== null) {
+    JSON.parse(getList);
+    
+}
+
+
+
+// function saveData () {
+//     localStorage.setItem('userArry', userArray);
+
+
+
+
+
+
+// }
+
+
+
+
   //   Create elements on page
   for (var i = 0; i < 9; i++) {
     var div1 = $("<div>");
@@ -86,29 +104,73 @@ function createCal() {
     $(".container").append(div1);
   }
   console.log(textArea.val() + "working");
-}
+
+
 //   Save button event listener - WORKING BUT TRYING SOMETHING DIFFERENT
 $("button").on("click", function () {
-  console.log("textarea");
-  localStorage.setItem(
-    "input",
-    JSON.stringify($(this).closest("textarea").val())
-  );
-  // var userData = JSON.parse(localStorage.getItem(textarea));
-  // first, assign a unique id to the save button because $(this) will only return the save button
-  // console.log($(this).attr("id"));
-  // using the unique id find the corrisponding textarea and assign a variable to obtain the value
+    
+    var info = $(this).parent("div").prev().val();
+    console.log(info);
+
+    
+
+    localStorage.setItem('userArray', JSON.stringify(userArray))
+    console.log($(this).val);
+
+
 });
+
+
+
+
+
+
 //   Time blocks change depending on current time - NOT WORKING
-function blockColor() {
-  var futureTime = currHour + 1;
-  console.log(futureTime + "time");
-  // var futureColor = $("textarea").css("background-color", "green");
-  for (`${i}` = futureTime; i > currHour; ) {
-    textArea.classList.remove("past");
-    textArea.classList.add("future");
-    // $("textarea").removeClass([past]);
-    // $("textarea").addClass([future]);
-  }
+
+
+function futureBlockColor() {
+  var futureTime = currHour + 1  
+
+
+// if statment to check what the current time is and run futureTime 
+
+// and call a second var for all the times that are pastTime
+
+
+    if (futureTime > currHour) {
+       $("timeArray").removeClass('past').addClass('future');
+
+
+    }
+
+
+
+
 }
-blockColor();
+
+
+var pastTime = currHour - 1
+
+
+
+
+// if (futureTime < currHour ) {
+    
+
+//     } if (futureTime > currHour) {
+
+//         console.log(futureTime + "time");
+//         for (var i = futureTime; i > currHour; ) {
+        // var futureColor = $("textarea").css("background-color", "green")
+//         textArea.classList.add(futureColor);
+//         }   
+        
+//     }
+
+
+
+futureBlockColor();    
+
+
+
+
